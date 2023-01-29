@@ -1,0 +1,68 @@
+Q2) Below is a link to a spreadsheet with two columns A and B. Define a mapping function that for each row of column A, the output of the function will be the corresponding row of column B. More generally: mapping_function(An) =  Bn.  
+Embedded Software Engineer Quiz Resource
+For example:
+	
+mapping_function(15840) = cGp
+mapping_function(16465) = cmW
+mapping_function(17941) = cX3
+
+Q2 a) What is the mapping function?
+      A mapping function is a function that maps or associates each element of one set (column A) to an element of another set (column B). In the given example, the mapping function maps each value in column A to the corresponding value in column B. The output of the function is the value in column B, given the input value in column A. The function can be implemented in C using arrays or hash tables, or other data structures that support key-value pairs.
+
+Q2 b) What is the output of the mapping function for the following inputs: 30001, 55555, 77788
+      Unable to get it
+
+Q2 c) What is the upper limit of this mapping function before there will be collisions? 
+      The upper limit of this mapping function before there will be collisions depends on the number of unique keys in the map and the size of the key values. The maximum number of unique keys the function can handle before collisions occur is determined by the size of the key data type (int in this case) and the size of the map array. In this implementation, the maximum number of unique keys is limited by the maximum size of the int data type and the size of the map array (MAX_ROWS). However, as the size of the key values and the map array increases, the probability of collisions increases.
+
+Q2 d) Please share any code that you wrote in the process of trying to solve the above problem.
+      I have tried this implementation but I don't think it will work
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_ROWS 100
+#define MAX_LEN 10
+
+typedef struct {
+  int key;
+  char value[MAX_LEN];
+} Mapping;
+
+// Define the mapping function
+char *mapping_function(int key, Mapping *map, int n) {
+  for (int i = 0; i < n; i++) {
+    if (map[i].key == key) {
+      return map[i].value;
+    }
+  }
+  return NULL;
+}
+
+int main() {
+  Mapping map[MAX_ROWS];
+  int n = 10; // number of rows in the spreadsheet
+
+  // Initialize the mapping
+  map[0].key = 15840; strcpy(map[0].value, "cGp");
+  map[1].key = 16465; strcpy(map[1].value, "cmW");
+  map[2].key = 17941; strcpy(map[2].value, "cX3");
+  map[3].key = 17942; strcpy(map[3].value, "cXB");
+  map[4].key = 18898; strcpy(map[4].value, "ctR");
+  map[5].key = 19172; strcpy(map[5].value, "ckN");
+  map[6].key = 20512; strcpy(map[6].value, "PVg");
+  map[7].key = 20626; strcpy(map[7].value, "PD4");
+  map[8].key = 20758; strcpy(map[8].value, "PBR");
+  map[9].key = 25736; strcpy(map[9].value, "MYM");
+
+  // Test the mapping function
+  int key = 30001;
+  char *value = mapping_function(key, map, n);
+  if (value != NULL) {
+    printf("Mapping for key %d is %s\n", key, value);
+  } else {
+    printf("Key %d not found in mapping\n", key);
+  }
+
+  return 0;
+}

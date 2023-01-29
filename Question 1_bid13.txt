@@ -1,0 +1,49 @@
+/*******************************************************************************
+  * FILE NAME         : main.c
+  * PROGRAMMER        : Jay Umrigar
+  * DESCRIPTION       : The program is to print the dimensions of squares that can be cut from the paper with given length and width.
+  * DATE              : 29th January, 2023
+ *******************************************************************************/
+#include <stdio.h>
+#include <math.h>
+
+	
+    void squares(int n, int m){
+    // Determine the minimum and maximum dimension of the paper
+    int min = n < m ? n : m;
+    int max = n > m ? n : m;
+    
+    // Initialize the max and min dimensions for iteration
+    int maxN = max;
+    int minN = min;
+    
+    // Loop until the minimum dimension becomes zero
+    while(minN > 0){
+        // Print the dimensions of the square that can be cut from the paper
+        printf("%dx%d", minN,minN);
+        
+        // Update the max and min dimensions for the next iteration
+        max = max - min;
+        maxN = min > max ? min : max;
+        minN = min < max ? min : max;
+        max = maxN;
+        min = minN;
+        
+        // If the minimum dimension is still greater than zero, print a comma
+        if (minN > 0){
+            printf(" ,");
+        }
+    }
+}
+
+int main()
+{
+    // Input the length and width of the paper
+    int n, m;
+    scanf("%d %d", &n, &m);
+    
+    // Call the function to print the dimensions of squares that can be cut from the paper
+    squares(n,m);
+    
+    return 0;
+}
